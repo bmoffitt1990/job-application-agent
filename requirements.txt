@@ -1,0 +1,5 @@
+browser-use
+openai
+python-dotenv
+PyPDF2
+langchain-openai

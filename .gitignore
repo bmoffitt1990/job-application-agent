@@ -1,0 +1,15 @@
+# Ignore the virtual environment
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore environment variable files (your API keys)
+.env
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore resume or other personal PDFs
+*.pdf
