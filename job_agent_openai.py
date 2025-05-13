@@ -13,10 +13,12 @@ from utils.actions import upload_file
 
 load_dotenv()
 
+# Load OpenAI Key
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 if not OPENAI_API_KEY:
     raise ValueError("Missing OPENAI_API_KEY in .env")
 
+# Set up the LLM
 model = ChatOpenAI(
     model="gpt-4o",  # or "gpt-3.5-turbo"
     api_key=OPENAI_API_KEY
@@ -37,21 +39,7 @@ async def upload_cv(index: int, browser: BrowserContext):
 async def upload_cover_letter(index: int, browser: BrowserContext):
     return await upload_file(index, browser, config["cover_letter_path"], "cover letter")
 
-
-from browser_use import ActionResult
-
-@controller.action("Extract job description text")
-async def extract_job_description(browser):
-    html = await browser.get_page_content()
-    return ActionResult(extracted_content=html, include_in_memory=True)
-
-browser = Browser(
-    config=BrowserConfig(
-        browser_binary_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-        disable_security=True,
-    )
-)
-
+# Load prompt with variable injection
 def load_prompt(filename: str, **kwargs) -> str:
     path = Path("prompts") / filename
     if not path.exists():
@@ -59,12 +47,15 @@ def load_prompt(filename: str, **kwargs) -> str:
     raw_prompt = path.read_text()
     return raw_prompt.format(**kwargs)
 
+# Launch browser and agent
+browser = Browser(
+    config=BrowserConfig(
+        browser_binary_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        disable_security=True,
+    )
+)
+
 async def main():
-    config = load_config()
-    resume_path = Path.cwd() / config["resume_path"]
-    cover_letter_path = Path.cwd() / config["cover_letter_path"]
-    # resume_text = read_cv(resume_path)
-    # cover_letter_text = read_cv(cover_letter_path)
 
     prompt = load_prompt(
         "apply.txt",
@@ -86,13 +77,6 @@ async def main():
         are_you_disabled=config["are_you_disabled"],
         are_you_veteran=config["are_you_veteran"],
         are_you_hispanic_or_latino=config["are_you_hispanic_or_latino"],
-    )
-
-    prompt = load_prompt(
-        "apply.txt",
-        resume=resume_text,
-        name="Brandon Moffitt",
-        email="brandon.james.moffitt@gmail.com",
         job_url="https://ats.rippling.com/rippling/jobs/bda12f6a-6afc-45af-8e6a-b0056facf15c"
     )
 
