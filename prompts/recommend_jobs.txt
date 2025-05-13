@@ -1,0 +1,14 @@
+You are a job application assistant. Here's my resume:
+
+[RESUME]
+{resume_text}
+
+Here's a job description from a job posting:
+
+[JOB POSTING]
+{job_text}
+
+Based on this, tell me:
+- How well I fit
+- What skills I should highlight
+- Whether I should apply

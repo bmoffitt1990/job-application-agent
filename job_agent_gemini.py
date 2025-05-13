@@ -1,7 +1,9 @@
+## Not working
+
 import asyncio
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+import google.generativeai as genai
 from PyPDF2 import PdfReader
 from pathlib import Path
 
@@ -10,14 +12,13 @@ from browser_use.browser.browser import Browser, BrowserConfig
 
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-if not OPENAI_API_KEY:
-    raise ValueError("Missing OPENAI_API_KEY in .env")
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+if not GOOGLE_API_KEY:
+    raise ValueError("Missing GOOGLE_API_KEY in .env")
 
-model = ChatOpenAI(
-    model="gpt-4o",  # or "gpt-3.5-turbo"
-    api_key=OPENAI_API_KEY
-)
+genai.configure(api_key=GOOGLE_API_KEY)
+
+model = genai.GenerativeModel("models/gemini-1.5-pro-latest")
 
 def read_cv(file_path: Path) -> str:
     if not file_path.exists():
@@ -62,7 +63,7 @@ async def main():
     cv_path = Path.cwd() / "Brandon_Moffitt.pdf"
     resume_text = read_cv(cv_path)
 
-    job_url = "https://www.ycombinator.com/companies/dianahr/jobs/jiFsBxe-client-operations-manager-hr-processes-focus"  # <-- replace with a real one
+    job_url = "https://careers.google.com/jobs/results/123456-job-title-placeholder"  # <-- replace with a real one
 
     prompt = f"""
     You're a job application assistant. First, read my resume below:
@@ -76,7 +77,7 @@ async def main():
     Extract the job description, and tell me:
     - How well I fit. Be honest! Do not be afraid to say I don't fit.
     - What skills I should highlight.
-    - Whether I should apply.
+    - Whether I should apply
     """
 
     agent = Agent(
