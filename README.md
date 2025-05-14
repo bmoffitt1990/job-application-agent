@@ -1,87 +1,79 @@
-# 🤖 Gemini Job Application Agent
+# AI Headhunter – OpenAI-Powered Job Application Agent
 
-A Python tool that reads your resume, analyzes it with Google’s Gemini model, and suggests relevant machine learning internships. This is the foundation for a fully automated job search assistant.
+This project automates job applications on modern job boards like Rippling, using Playwright and OpenAI to fill out forms, upload resumes, and follow multi-step instructions.
 
 ---
 
-## 🔧 Features
+## ✅ Features
 
-- 🧠 Uses Google's **Gemini 1.5 Pro** to analyze your resume  
-- 📄 Reads resume content from a local `.pdf`  
-- 💡 Generates personalized internship suggestions  
-- 🔜 Extendable: Integrate with browser automation for form filling and job board scraping using `browser-use`  
+- 🔍 Navigates to job URLs and clicks "Apply" automatically
+- 📎 Uploads resume and cover letter using CSS/data attributes
+- 🧠 Fills out personal information (name, email, phone, etc.)
+- 🤖 Controlled via OpenAI (GPT-4o), using browser-use's `Agent` + `Controller`
+- 🔌 Modular architecture for supporting additional job boards
+- 🧱 Easily extendable with custom actions and prompts
 
 ---
 
 ## 📁 Project Structure
 
 ```
-.
-├── .env                  # API keys and secrets (not tracked by Git)
-├── Brandon_Moffitt.pdf   # Your resume (ignored by Git)
-├── gemini_test.py        # Simple script to verify Gemini integration
-├── job_agent.py          # Legacy or alternate job agent version
-├── job_agent_gemini.py   # Main Gemini-powered agent script
-├── requirements.txt      # Project dependencies
-├── venv/                 # Virtual environment (ignored by Git)
+job-agent/
+├── openai_agents/
+│   └── rippling.py               # Agent for Rippling job applications
+├── prompts/
+│   └── apply.txt                 # Task prompt injected with variables
+├── utils/
+│   ├── config.py                 # Loads user data from .env or YAML
+│   ├── actions/
+│   │   ├── shared.py             # Shared upload helpers
+│   │   └── rippling.py           # Rippling-specific upload logic
+├── .env                          # OpenAI key + user details
+├── README.md                     # This file
 ```
 
 ---
 
-## 🚀 Getting Started
+## ⚙️ Requirements
 
-### 1. Clone the repo
+- Python 3.9+
+- `browser-use`
+- `playwright`
+- `openai`
+- `langchain`
+- `python-dotenv`
 
+Install dependencies:
 ```bash
-git clone https://github.com/YOUR_USERNAME/job-application-agent.git
-cd job-application-agent
-```
-
-### 2. Set up your virtual environment
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
 pip install -r requirements.txt
+playwright install
 ```
-
-### 3. Add your `.env` file
-
-Create a `.env` file in the root with your Gemini API key:
-
-```
-GOOGLE_API_KEY=your-google-cloud-api-key
-```
-
-> 🔐 This file is already `.gitignore`'d.
-
-### 4. Add your resume
-
-Place your resume as `resume.pdf` in the project root, or change the filename in `job_agent_gemini.py`.
 
 ---
 
-## 🧪 Run It
+## 🚀 How to Run
+
+From the project root, run the Rippling OpenAI agent like this:
 
 ```bash
-python job_agent_gemini.py
+python3 -m openai_agents.rippling
 ```
 
-You’ll get:
-- ✅ Your resume read and parsed
-- 💡 ML internship suggestions powered by Gemini
+Make sure you have:
+- A valid `.env` file with:
+  - `OPENAI_API_KEY=...`
+  - Your resume/cover letter paths and personal info
+- A prompt at `prompts/apply.txt`
 
 ---
 
-## 📌 Roadmap Ideas
+## 🧩 Coming Soon
 
-- ✅ Save internship leads to a CSV  
-- 🔄 Automatically scrape job boards (via `browser-use`)  
-- 📝 Generate cover letters  
-- 📬 Auto-apply and track applications  
+- Lever, Greenhouse, Workday support
+- Auto-generated cover letters
+- State saving + retry queues
+- Application history tracker
 
 ---
 
-## 📄 License
-
-MIT License
+Built with ❤️ by Brandon

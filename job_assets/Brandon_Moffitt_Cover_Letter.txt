@@ -1,0 +1,24 @@
+Death, taxes, and cover letters—the unavoidable constants of life.
+
+I have to write them, and you have to read them. Maybe. I am actually not sure if anyone reads these. I wouldn’t blame you if you didnt–they all start to blend together at some point.
+
+To bring a human element to the screening process, I recorded a video [https://drive.google.com/file/d/1zZGOjRInNvd4a9EiIT3KvWXOSVYusYnm/view?usp=drive_link] for you to check out!
+
+If you don’t feel like watching it, I totally understand. To summarize the video:
+
+ - I’m a lifelong learner and deeply curious—curiosity has been the driving force behind every chapter of my career.
+ - I love solving problems, collaborating, and figuring things out in ambiguous, fast-paced environments. These are the roles where I thrive.
+ - I absolutely love tech: its dynamic nature, constant evolution, and the way it demands adaptability and creative thinking.
+ - Recently I’ve been diving deep into AI, building projects like:
+     - An AI headhunter [https://github.com/bmoffitt1990/job-application-agent] that searches for jobs based on my resume and preferences, then autonomously applies by navigating job boards, uploading materials, and completing forms using Browser-Use and OpenAI.
+     - An accountability app built with React Native, Firebase, and AI tools to help users stick to habits.
+     - A prototype for an LLM-powered life coach app using Pinecone, React Native, and Gemini.
+ - While these projects are technical, they reflect my core drive: solving problems, building scalable systems, and automating workflows. Whether in Ops, Product, or Customer roles, I bring this same builder’s mindset to streamline processes, uncover insights, and deliver meaningful outcomes.
+ - Outside of work, I love backpacking, cooking, trying new restaurants, going out with friends, all the normal stuff! I also played sports my whole life. Being active is very important to me.
+ - I’m eager to get back to working in-person, collaborating, brainstorming, mentoring. I currently live with my cat and he’s a great guy! But…I am ready to be in person again.
+ - I’m looking forward to joining a fast-growing company where I can bring energy, curiosity, and a love for problem-solving.
+
+I hope to talk with you soon.
+
+Best,
+Brandon
