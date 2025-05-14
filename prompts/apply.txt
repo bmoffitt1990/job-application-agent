@@ -28,3 +28,4 @@ Instructions:
 4. Use the Applicant Details to fill out any fields in the application. If you run into any fields that are not in Applicant Details, please pause and prompt me to fill those fields out.
 5. If there is a text area for an additional message, pause and ask me what to write before proceeding. Do not continue the application until I provide a response.
 6. Only apply if the form is short and does not require login or authentication.
+7. After finding relevant internships, save each one to a file using the save_jobs action.
