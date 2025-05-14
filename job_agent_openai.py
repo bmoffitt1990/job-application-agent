@@ -9,7 +9,9 @@ from browser_use.browser.browser import Browser, BrowserConfig
 from browser_use.browser.context import BrowserContext
 from langchain_openai import ChatOpenAI
 from utils.config import load_config
-from utils.actions import upload_file
+#from utils.actions import upload_file
+from utils.actions import upload_cover_letter_rippling as upload_cover_letter_rippling_action
+from utils.actions import upload_resume_rippling as upload_resume_rippling_action
 
 load_dotenv()
 
@@ -31,13 +33,24 @@ config = load_config()
 controller = Controller()
 
 # Register file upload actions
-@controller.action("Upload resume to element - use this for the resume upload field")
-async def upload_cv(index: int, browser: BrowserContext):
-    return await upload_file(index, browser, config["resume_path"], "resume")
+#@controller.action("Upload resume to element - use this for the resume upload field")
+#async def upload_cv(index: int, browser: BrowserContext):
+#    return await upload_file(index, browser, config["resume_path"], "resume")
 
-@controller.action("Upload cover letter to element - use this for the cover letter upload field")
-async def upload_cover_letter(index: int, browser: BrowserContext):
-    return await upload_file(index, browser, config["cover_letter_path"], "cover letter")
+#@controller.action("Upload cover letter to element - use this for the cover letter upload field")
+#async def upload_cover_letter(index: int, browser: BrowserContext):
+#    return await upload_file(index, browser, config["cover_letter_path"], "cover letter")
+
+
+@controller.action("Upload resume to Rippling using direct selector")
+async def upload_resume_rippling(index: int, browser: BrowserContext):
+    config = load_config()
+    return await upload_resume_rippling_action(browser, config["resume_path"])
+
+@controller.action("Upload cover letter to Rippling using direct selector")
+async def upload_cover_letter_rippling(index: int, browser: BrowserContext):
+    config = load_config()
+    return await upload_cover_letter_rippling_action(browser, config["cover_letter_path"])
 
 # Load prompt with variable injection
 def load_prompt(filename: str, **kwargs) -> str:
@@ -52,6 +65,7 @@ browser = Browser(
     config=BrowserConfig(
         browser_binary_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         disable_security=True,
+        headless=False, # Run in headless mode
     )
 )
 
@@ -64,6 +78,7 @@ async def main():
         first_name=config["first_name"],
         last_name=config["last_name"],
         email=config["email"],
+        phone=config["phone"],
         job_url=config["job_url"],
         linkedin_link=config["linkedin_link"],
         github_link=config["github_link"],
@@ -77,7 +92,6 @@ async def main():
         are_you_disabled=config["are_you_disabled"],
         are_you_veteran=config["are_you_veteran"],
         are_you_hispanic_or_latino=config["are_you_hispanic_or_latino"],
-        job_url="https://ats.rippling.com/rippling/jobs/bda12f6a-6afc-45af-8e6a-b0056facf15c"
     )
 
     agent = Agent(
